@@ -1,0 +1,21 @@
+# Foxnuts Farm - Robots.txt
+# Allow all search engines to crawl the site
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://foxnutsfarm.com/sitemap.xml
+
+# Crawl rate
+Crawl-delay: 10
+
+# Disallow admin areas (if any in future)
+# Disallow: /admin/
+# Disallow: /api/
+
+# Allow access to CSS, JS, and images
+Allow: /icons/
+Allow: /products/
+Allow: /farm/
+Allow: /testimonials/

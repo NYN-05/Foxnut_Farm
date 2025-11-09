@@ -1,0 +1,222 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply m-0 font-sans antialiased;
+    background-color: #FFFDF8;
+    color: #2F2F2F;
+    overflow-x: hidden;
+  }
+
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold;
+  }
+}
+
+@layer components {
+  /* Hero Button - Berry Pink CTA */
+  .btn-hero {
+    @apply px-8 py-3 text-white font-semibold rounded-full
+           transition-all duration-300 shadow-lg;
+    background-color: #E76F51;
+  }
+
+  .btn-hero:hover {
+    background-color: #D55A3F;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.3);
+  }
+
+  /* Primary Button - Sunshine Yellow */
+  .btn-primary {
+    @apply px-8 py-3 font-semibold rounded-full
+           transition-all duration-300 shadow-lg;
+    background-color: #F9C74F;
+    color: #2F2F2F;
+  }
+
+  .btn-primary:hover {
+    background-color: #F7B733;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(249, 199, 79, 0.3);
+  }
+
+  /* Brand Green Button */
+  .btn-green {
+    @apply px-8 py-3 text-white font-semibold rounded-full
+           transition-all duration-300 shadow-lg;
+    background-color: #74B72E;
+  }
+
+  .btn-green:hover {
+    background-color: #5D9E24;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(116, 183, 46, 0.3);
+  }
+
+  /* Berry Pink Button */
+  .btn-berry {
+    @apply px-8 py-3 text-white font-semibold rounded-full
+           transition-all duration-300 shadow-lg;
+    background-color: #E76F51;
+  }
+
+  .btn-berry:hover {
+    background-color: #D55A3F;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(231, 111, 81, 0.3);
+  }
+
+  /* Outline Button */
+  .btn-outline {
+    @apply px-8 py-3 bg-transparent border-2 font-semibold rounded-full
+           transition-all duration-300;
+    border-color: #74B72E;
+    color: #74B72E;
+  }
+
+  .btn-outline:hover {
+    background-color: #74B72E;
+    color: #FFFFFF;
+    transform: translateY(-2px);
+  }
+
+  /* Card Styling */
+  .card {
+    @apply rounded-2xl shadow-lg overflow-hidden
+           transition-all duration-300;
+    background-color: #FFFFFF;
+    box-shadow: rgba(0, 0, 0, 0.06) 0px 4px 10px;
+  }
+
+  .card:hover {
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 8px 20px;
+  }
+
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .heading-1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-serif font-bold;
+    color: #2F2F2F;
+  }
+
+  .heading-1-white {
+    @apply text-4xl md:text-5xl lg:text-6xl font-serif font-bold;
+    color: #FFFFFF;
+  }
+
+  .heading-2 {
+    @apply text-3xl md:text-4xl lg:text-5xl font-serif font-bold;
+    color: #2F2F2F;
+  }
+
+  .heading-3 {
+    @apply text-2xl md:text-3xl font-serif font-semibold;
+    color: #2F2F2F;
+  }
+
+  .text-body {
+    @apply text-base md:text-lg;
+    color: #555555;
+  }
+
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .gradient-overlay {
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.1));
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #FFFDF8;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #74B72E;
+  border-radius: 6px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #5D9E24;
+}
+
+/* Skip to Content Link - Accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: #74B72E;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  font-weight: 600;
+  border-radius: 0 0 4px 0;
+  z-index: 100;
+  transition: top 0.3s;
+}
+
+.skip-to-content:focus {
+  top: 0;
+  outline: 2px solid #F9C74F;
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling for modals and containers */
+.scroll-smooth {
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Custom scrollbar styling */
+.overflow-y-auto::-webkit-scrollbar {
+  width: 8px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 10px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+  background: #16a34a;
+  border-radius: 10px;
+  transition: background 0.2s;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb:hover {
+  background: #15803d;
+}
