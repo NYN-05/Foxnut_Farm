@@ -1,7 +1,9 @@
 # Backend-Frontend Integration Guide
 
 ## Overview
-The FoxNut e-commerce application now has full backend integration with an **offline-first** architecture. This means the app works seamlessly whether the backend is online or offline.
+The Foxnuts Farm e-commerce application features full backend integration with an **offline-first** architecture. The app works seamlessly whether the backend is online or offline, providing a robust user experience.
+
+**Repository:** [https://github.com/NYN-05/Foxnut_Farm](https://github.com/NYN-05/Foxnut_Farm)
 
 ---
 
@@ -9,17 +11,20 @@ The FoxNut e-commerce application now has full backend integration with an **off
 
 ### Backend Stack
 - **Framework**: Flask 3.0.0
-- **Database**: MongoDB
-- **Authentication**: JWT tokens
+- **Database**: MongoDB (PyMongo 4.6.0)
+- **Authentication**: JWT (PyJWT 2.8.0) + bcrypt 4.1.2
 - **API Base URL**: `http://localhost:5000/api`
 - **CORS**: Configured for `http://localhost:5173`
+- **Server**: Development (Flask), Production (Gunicorn 21.2.0)
 
 ### Frontend Stack
 - **Framework**: React 19.1.1
 - **Build Tool**: Vite 7.1.7
-- **State Management**: Context API
+- **State Management**: Context API (CartContext, WishlistContext)
 - **HTTP Client**: Native Fetch API
 - **Fallback Storage**: localStorage
+- **Notifications**: React Hot Toast 2.6.0
+- **Icons**: Lucide React 0.553.0
 
 ---
 
@@ -27,31 +32,48 @@ The FoxNut e-commerce application now has full backend integration with an **off
 
 ```
 backend/
-├── app.py                 # Flask app with CORS & blueprint registration
+├── app.py                      # Flask app with CORS & blueprint registration
+├── config.py                   # Configuration management
+├── requirements.txt            # Python dependencies
+├── start.ps1                   # Windows PowerShell startup script
+├── start.bat                   # Windows batch startup script
+├── .env.example                # Environment template
+├── SETUP.md                    # Backend setup guide
+├── README.md                   # Backend documentation
+│
 ├── database/
-│   └── db.py             # MongoDB connection
+│   ├── __init__.py
+│   └── db.py                   # MongoDB connection & initialization
+│
 ├── models/
-│   ├── user.py           # User model
-│   ├── product.py        # Product model
-│   ├── order.py          # Order model
-│   └── review.py         # Review model
+│   ├── __init__.py
+│   ├── user.py                 # User model with auth methods
+│   ├── product.py              # Product model with validation
+│   ├── order.py                # Order model with status tracking
+│   └── review.py               # Review model with ratings
+│
 ├── routes/
-│   ├── auth.py           # /api/auth/* (login, register, profile)
-│   ├── products.py       # /api/products/* (CRUD, search)
-│   ├── cart.py           # /api/cart/* (add, update, remove, clear)
-│   ├── orders.py         # /api/orders/* (create, get, update)
-│   ├── reviews.py        # /api/reviews/* (CRUD, voting)
-│   ├── newsletter.py     # /api/newsletter/* (subscribe, unsubscribe)
-│   ├── subscriptions.py  # /api/subscriptions/* (plans, create, manage)
-│   ├── wishlist.py       # /api/wishlist/* (add, remove, get)
-│   └── admin.py          # /api/admin/* (stats, orders, products)
+│   ├── __init__.py
+│   ├── auth_routes.py          # /api/auth/* (8 endpoints)
+│   ├── product_routes.py       # /api/products/* (9 endpoints)
+│   ├── cart_routes.py          # /api/cart/* (5 endpoints)
+│   ├── order_routes.py         # /api/orders/* (6 endpoints)
+│   ├── review_routes.py        # /api/reviews/* (6 endpoints)
+│   ├── newsletter_routes.py    # /api/newsletter/* (3 endpoints)
+│   ├── subscription_routes.py  # /api/subscriptions/* (7 endpoints)
+│   ├── wishlist_routes.py      # /api/wishlist/* (4 endpoints)
+│   └── admin_routes.py         # /api/admin/* (6 endpoints)
+│
 └── middleware/
-    ├── auth_middleware.py
-    ├── error_handler.py
-    └── validator.py
+    ├── __init__.py
+    ├── auth_middleware.py      # JWT token verification
+    ├── error_handler.py        # Centralized error handling
+    └── validators.py           # Request validation functions
 ```
 
-**Total Endpoints**: 54 across 9 blueprints
+**Total API Endpoints**: 54 across 9 route modules  
+**Authentication**: JWT bearer token in Authorization header  
+**Database**: MongoDB with proper indexing and validation  
 
 ---
 
@@ -60,25 +82,82 @@ backend/
 ### API Service Layer
 **File**: `src/services/api.js`
 
-Complete API service with:
-- ✅ All 54 backend endpoints mapped
+Complete centralized API service with:
+- ✅ All 54 backend endpoints mapped and documented
 - ✅ JWT token management (stored in localStorage)
-- ✅ Automatic Authorization header injection
-- ✅ Error handling with try/catch
-- ✅ Singleton pattern for consistency
+- ✅ Automatic Authorization header injection for protected routes
+- ✅ Comprehensive error handling with try/catch blocks
+- ✅ Singleton pattern for consistency across components
+- ✅ Response data extraction and formatting
+- ✅ Network error handling and fallback strategies
 
 **Example Usage**:
 ```javascript
 import api from '../services/api';
 
-// Register user
-const user = await api.register({ name, email, password });
+// Authentication
+const { user, token } = await api.register({ 
+  name: 'John Doe', 
+  email: 'john@example.com', 
+  password: 'SecurePass123' 
+});
 
-// Get products
-const products = await api.getProducts({ category: 'roasted' });
+// Products
+const products = await api.getProducts({ 
+  category: 'roasted', 
+  page: 1, 
+  limit: 20 
+});
 
-// Add to cart
+// Shopping Cart
 await api.addToCart(productId, quantity);
+await api.updateCartItem(productId, newQuantity);
+const cart = await api.getCart();
+
+// Orders
+const order = await api.createOrder({
+  shippingAddress: addressId,
+  paymentMethod: 'card'
+});
+
+// Reviews
+await api.createReview(productId, {
+  rating: 5,
+  comment: 'Excellent quality!'
+});
+
+// Wishlist
+await api.addToWishlist(productId);
+const wishlist = await api.getWishlist();
+```
+
+### Context Providers
+
+**CartContext** (`src/context/CartContext.jsx`):
+```javascript
+// Provides cart state and functions
+const { 
+  cart, 
+  cartCount, 
+  cartTotal, 
+  addToCart, 
+  removeFromCart, 
+  updateQuantity, 
+  clearCart,
+  isCartOpen,
+  setIsCartOpen 
+} = useCart();
+```
+
+**WishlistContext** (`src/context/WishlistContext.jsx`):
+```javascript
+// Provides wishlist state and functions
+const { 
+  wishlist, 
+  addToWishlist, 
+  removeFromWishlist, 
+  isInWishlist 
+} = useWishlist();
 ```
 
 ---

@@ -2,15 +2,29 @@
 
 ## Complete Full-Stack E-Commerce Platform
 
-**Frontend:** React 19 + Vite + Tailwind CSS  
-**Backend:** Flask (Python) + MongoDB + JWT Auth  
-**Features:** Shopping Cart, Orders, Reviews, Subscriptions, Admin Dashboard
+**Frontend:** React 19.1.1 + Vite 7.1.7 + Tailwind CSS 3.4.18  
+**Backend:** Flask 3.0.0 (Python) + MongoDB + JWT Auth  
+**Features:** Shopping Cart, Orders, Reviews, Subscriptions, Admin Dashboard  
+**Repository:** [https://github.com/NYN-05/Foxnut_Farm](https://github.com/NYN-05/Foxnut_Farm)
 
 ---
 
 ## ⚡ Quick Start (5 Minutes)
 
-### Step 1: Start Frontend
+### Prerequisites Checklist
+- ✅ Node.js v20.19.0+ installed
+- ✅ Python 3.9+ installed
+- ✅ MongoDB Atlas account (free tier works)
+- ✅ Git installed
+
+### Step 1: Clone Repository
+
+```bash
+git clone https://github.com/NYN-05/Foxnut_Farm.git
+cd Foxnut_Farm
+```
+
+### Step 2: Start Frontend
 
 ```powershell
 # Install dependencies
@@ -20,11 +34,11 @@ npm install
 npm run dev
 ```
 
-✅ Frontend running at: `http://localhost:5173`
+✅ **Frontend running at:** `http://localhost:5173`
 
 ---
 
-### Step 2: Start Backend
+### Step 3: Start Backend
 
 ```powershell
 # Navigate to backend
@@ -38,57 +52,83 @@ pip install -r requirements.txt
 python app.py
 ```
 
-✅ Backend running at: `http://localhost:5000`
+✅ **Backend running at:** `http://localhost:5000`  
+✅ **API Base URL:** `http://localhost:5000/api`
 
 ---
 
-### Step 3: Configure Environment
+### Step 4: Configure Environment
 
-**Backend requires MongoDB!** Edit `backend/.env`:
+**Backend requires MongoDB!** Create `backend/.env`:
 
 ```env
-# Get free MongoDB Atlas cluster: https://www.mongodb.com/cloud/atlas
+# MongoDB (Required) - Get free cluster: https://www.mongodb.com/cloud/atlas
 MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+MONGODB_DB_NAME=foxnuts_farm
 
-# Generate random string for JWT
-JWT_SECRET_KEY=your-super-secret-key-here
+# Security (Required) - Generate random strings
+JWT_SECRET_KEY=your-super-secret-jwt-key-here
+SECRET_KEY=your-flask-secret-key-here
 
 # Optional (for full features):
 STRIPE_SECRET_KEY=sk_test_...
 SENDGRID_API_KEY=SG...
+CLOUDINARY_CLOUD_NAME=your-cloud-name
+CLOUDINARY_API_KEY=your-api-key
+CLOUDINARY_API_SECRET=your-api-secret
+```
+
+**Frontend (Optional)** - Create `.env` in root:
+```env
+VITE_API_URL=http://localhost:5000/api
 ```
 
 ---
 
 ## 📚 Full Documentation
 
+- **[README.md](./README.md)** - Complete project overview
+- **[API_ENDPOINTS.md](./API_ENDPOINTS.md)** - All 54 API endpoints
+- **[BACKEND_INTEGRATION.md](./BACKEND_INTEGRATION.md)** - Integration guide
+- **[FEATURES_IMPLEMENTED.md](./FEATURES_IMPLEMENTED.md)** - Feature details
 - **Backend Setup:** `backend/SETUP.md`
-- **API Documentation:** `backend/README.md`
-- **Frontend Features:** Main `README.md`
+- **Backend API:** `backend/README.md`
 
 ---
 
 ## 🎯 What's Included
 
-### Frontend Features
-✅ Shopping cart with Context API  
-✅ Product catalog with filters  
-✅ Responsive design (mobile-first)  
-✅ SEO optimized (Schema.org, sitemap)  
-✅ Accessibility (WCAG 2.1 AA)  
-✅ Lazy loading & performance  
+### Frontend Features (16 Components)
+✅ **Header** - Sticky navigation with cart badge  
+✅ **Shopping Cart** - Full cart management with Context API  
+✅ **Product Catalog** - Filterable product grid  
+✅ **Product Modals** - Detailed product views  
+✅ **Authentication** - Login/Register modals with JWT  
+✅ **Wishlist** - Save favorite products  
+✅ **Search** - Product search functionality  
+✅ **Reviews** - Customer testimonials  
+✅ **Quiz** - Personality quiz with recommendations  
+✅ **Recipes** - Foxnut recipe showcase  
+✅ **Farm Section** - Farm story and statistics  
+✅ **Sustainability** - Environmental metrics  
+✅ **Newsletter** - Email subscription form  
+✅ **Responsive Design** - Mobile-first approach  
+✅ **SEO Optimized** - Schema.org, sitemap, robots.txt  
+✅ **Accessibility** - WCAG 2.1 AA compliant  
 
-### Backend Features
-✅ User authentication (JWT)  
-✅ Product management  
-✅ Order processing  
-✅ Shopping cart API  
-✅ Product reviews  
-✅ Newsletter subscriptions  
-✅ Recurring subscriptions  
-✅ Wishlist  
-✅ Admin dashboard  
-✅ Analytics & reporting  
+### Backend Features (54 API Endpoints)
+✅ **User Authentication** - JWT with bcrypt (8 endpoints)  
+✅ **Product Management** - CRUD operations (9 endpoints)  
+✅ **Shopping Cart** - Add/update/remove items (5 endpoints)  
+✅ **Order Processing** - Complete checkout flow (6 endpoints)  
+✅ **Product Reviews** - Rate and review (6 endpoints)  
+✅ **Newsletter** - Email subscriptions (3 endpoints)  
+✅ **Subscriptions** - Recurring deliveries (7 endpoints)  
+✅ **Wishlist** - Save products (4 endpoints)  
+✅ **Admin Dashboard** - Analytics & management (6 endpoints)  
+✅ **Input Validation** - Request validation middleware  
+✅ **Error Handling** - Centralized error responses  
+✅ **CORS** - Frontend-backend communication  
 
 ---
 
@@ -96,8 +136,218 @@ SENDGRID_API_KEY=SG...
 
 | Layer | Technologies |
 |-------|-------------|
-| **Frontend** | React 19, Vite, Tailwind CSS, Framer Motion |
-| **Backend** | Flask 3.0, Python 3.9+ |
+| **Frontend** | React 19.1.1, Vite 7.1.7, Tailwind CSS 3.4.18, Framer Motion 12.23.24 |
+| **Backend** | Flask 3.0.0, Python 3.9+ |
+| **Database** | MongoDB (PyMongo 4.6.0) |
+| **Authentication** | JWT (PyJWT 2.8.0) + bcrypt 4.1.2 |
+| **State Management** | Context API (CartContext, WishlistContext) |
+| **API Communication** | Fetch API with centralized service layer |
+| **Icons** | Lucide React 0.553.0 |
+| **Notifications** | React Hot Toast 2.6.0 |
+| **Payments** | Stripe 7.8.0 |
+| **Email** | SendGrid 6.11.0 |
+| **Images** | Cloudinary 1.37.0 |
+| **Testing** | pytest 7.4.3 |
+
+---
+
+## 📁 Project Structure Overview
+
+```
+Foxnut_Farm/
+├── src/
+│   ├── components/         # 16 React components
+│   │   ├── Header.jsx
+│   │   ├── CartPanel.jsx
+│   │   ├── AuthModal.jsx
+│   │   └── ...
+│   ├── context/           # State management
+│   │   ├── CartContext.jsx
+│   │   └── WishlistContext.jsx
+│   ├── services/
+│   │   └── api.js         # Backend integration (54 endpoints)
+│   └── data/
+│       └── products.js    # Product catalog
+│
+├── backend/
+│   ├── routes/           # 9 route modules
+│   │   ├── auth_routes.py
+│   │   ├── product_routes.py
+│   │   ├── cart_routes.py
+│   │   ├── order_routes.py
+│   │   └── ...
+│   ├── models/           # Data models
+│   ├── middleware/       # Auth, validation, errors
+│   ├── database/         # MongoDB connection
+│   └── app.py           # Flask application
+│
+├── public/              # Static assets
+│   ├── products/
+│   ├── icons/
+│   ├── sitemap.xml
+│   └── robots.txt
+│
+└── Documentation/       # Complete docs
+    ├── README.md
+    ├── QUICKSTART.md (this file)
+    ├── API_ENDPOINTS.md
+    └── ...
+```
+
+---
+
+## 🔌 API Endpoints Summary
+
+**Base URL:** `http://localhost:5000/api`
+
+### Authentication (`/api/auth`)
+- POST `/register` - Create account
+- POST `/login` - Login user
+- GET `/me` - Get profile
+- PUT `/me` - Update profile
+- POST `/change-password` - Change password
+- POST `/addresses` - Add address
+- PUT `/addresses/:id` - Update address
+- DELETE `/addresses/:id` - Delete address
+
+### Products (`/api/products`)
+- GET `/` - List all products (with filters)
+- GET `/:id` - Get single product
+- GET `/slug/:slug` - Get by slug
+- POST `/` - Create product (Admin)
+- PUT `/:id` - Update product (Admin)
+- DELETE `/:id` - Delete product (Admin)
+- And more... (9 total)
+
+### Shopping Cart (`/api/cart`)
+- GET `/` - Get user's cart
+- POST `/items` - Add item to cart
+- PUT `/items/:productId` - Update quantity
+- DELETE `/items/:productId` - Remove item
+- DELETE `/clear` - Clear cart
+
+### Orders (`/api/orders`)
+- POST `/` - Create order
+- GET `/` - Get user's orders
+- GET `/:id` - Get order details
+- PUT `/:id/cancel` - Cancel order
+- PUT `/:id/status` - Update status (Admin)
+- GET `/admin/all` - All orders (Admin)
+
+**See [API_ENDPOINTS.md](./API_ENDPOINTS.md) for complete documentation.**
+
+---
+
+## 🚀 Development Commands
+
+### Frontend
+```bash
+npm run dev      # Start dev server (localhost:5173)
+npm run build    # Build for production
+npm run preview  # Preview production build
+npm run lint     # Run ESLint
+```
+
+### Backend
+```bash
+python app.py              # Start Flask dev server
+pytest                     # Run tests
+pytest --cov               # Run tests with coverage
+gunicorn app:app           # Production server
+```
+
+---
+
+## 🐛 Common Issues & Solutions
+
+### Issue: Frontend can't connect to backend
+**Solution:**
+1. Check backend is running on port 5000
+2. Verify CORS is enabled in `backend/app.py`
+3. Check browser console for CORS errors
+
+### Issue: MongoDB connection failed
+**Solution:**
+1. Verify `MONGODB_URI` in `backend/.env`
+2. Check IP whitelist in MongoDB Atlas
+3. Ensure network allows MongoDB port (27017)
+
+### Issue: JWT token errors
+**Solution:**
+1. Set `JWT_SECRET_KEY` in `backend/.env`
+2. Clear browser localStorage
+3. Re-login to get new token
+
+### Issue: Images not loading
+**Solution:**
+1. Check images exist in `public/` folder
+2. Verify image paths in `src/data/products.js`
+3. Clear browser cache
+
+---
+
+## 🎯 Next Steps
+
+After setup, you can:
+
+1. **Explore the Application**
+   - Browse products
+   - Add items to cart
+   - Try the personality quiz
+   - Check out sustainability metrics
+
+2. **Test Backend Features**
+   - Register a new account
+   - Login and check JWT token
+   - Add products to cart
+   - Create a test order
+
+3. **Review Documentation**
+   - Read API endpoint details
+   - Understand integration patterns
+   - Explore component architecture
+
+4. **Customize**
+   - Modify product data
+   - Update color scheme
+   - Add new features
+   - Deploy to production
+
+---
+
+## 📞 Need Help?
+
+- **Documentation**: Check `/Documentation` folder
+- **API Reference**: `API_ENDPOINTS.md`
+- **Backend Setup**: `backend/SETUP.md`
+- **Integration Guide**: `BACKEND_INTEGRATION.md`
+- **GitHub Issues**: [Report bugs/request features](https://github.com/NYN-05/Foxnut_Farm/issues)
+
+---
+
+## ✅ Verification Checklist
+
+After setup, verify everything works:
+
+- [ ] Frontend loads at `localhost:5173`
+- [ ] Backend API responds at `localhost:5000/api`
+- [ ] Can view products on homepage
+- [ ] Header navigation scrolls to sections
+- [ ] Cart icon shows in header
+- [ ] Can open product modals
+- [ ] Personality quiz works
+- [ ] Newsletter form submits
+- [ ] MongoDB connection successful
+- [ ] Can register new user
+- [ ] Can login and receive JWT token
+- [ ] Cart adds/removes items
+- [ ] No console errors
+
+---
+
+**🎉 You're all set! Happy coding!**
+
+Built with ❤️ for Foxnuts Farm - Sustainable, Organic, Delicious
 | **Database** | MongoDB Atlas |
 | **Auth** | JWT (PyJWT 2.8.0) |
 | **Payments** | Stripe |
