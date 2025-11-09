@@ -63,7 +63,7 @@ python app.py
 
 ```env
 # MongoDB (Required) - Get free cluster: https://www.mongodb.com/cloud/atlas
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/
 MONGODB_DB_NAME=foxnuts_farm
 
 # Security (Required) - Generate random strings

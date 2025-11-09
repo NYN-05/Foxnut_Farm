@@ -20,13 +20,14 @@ Copy-Item .env.example .env
 Then edit `.env` with your actual values:
 
 ```env
-# MongoDB (Get from MongoDB Atlas)
-MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+# MongoDB (Get from MongoDB Atlas - https://www.mongodb.com/cloud/atlas)
+# Replace YOUR_USERNAME, YOUR_PASSWORD, and YOUR_CLUSTER with your actual MongoDB Atlas credentials
+MONGODB_URI=mongodb+srv://YOUR_USERNAME:YOUR_PASSWORD@YOUR_CLUSTER.mongodb.net/
 MONGODB_DB_NAME=foxnuts_farm
 
-# JWT Secret (Generate a random string)
-JWT_SECRET_KEY=your-super-secret-jwt-key-here
-SECRET_KEY=your-flask-secret-key-here
+# JWT Secret (Generate a random string using: python -c "import secrets; print(secrets.token_hex(32))")
+JWT_SECRET_KEY=GENERATE_RANDOM_SECRET_HERE
+SECRET_KEY=GENERATE_RANDOM_SECRET_HERE
 
 # Stripe (Get from Stripe Dashboard)
 STRIPE_SECRET_KEY=sk_test_...

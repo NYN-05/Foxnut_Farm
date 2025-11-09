@@ -194,7 +194,7 @@ A fully responsive, production-ready full-stack e-commerce application showcasin
    Edit `backend/.env` with your settings:
    ```env
    # Required
-   MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/
+   MONGODB_URI=mongodb+srv://<username>:<password>@<cluster>.mongodb.net/
    JWT_SECRET_KEY=your-super-secret-key-here
    SECRET_KEY=your-flask-secret-key
    
